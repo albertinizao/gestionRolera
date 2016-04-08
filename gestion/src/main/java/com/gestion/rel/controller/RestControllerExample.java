@@ -1,4 +1,4 @@
-package com.gestion.rel;
+package com.gestion.rel.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

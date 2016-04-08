@@ -1,5 +1,9 @@
 package com.gestion.rel.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.gestion.rel.binding.serializer.PartidaSerializer;
+
+@JsonSerialize(using=PartidaSerializer.class)
 public class Partida {
 	
 	private Integer id;
@@ -15,7 +19,7 @@ public class Partida {
 	private String name;
 	
 	public void setName(String name) {
-		this.name=name.toUpperCase();
+		this.name=name;
 	}
 	
 	public String getName(){
