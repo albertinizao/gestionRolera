@@ -1,6 +1,8 @@
 package com.gestion.rel.binding.serializer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,17 @@ public class PartidaSerializer extends JsonSerializer<Partida> {
 		final Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", arg0.getId());
 		map.put("name", arg0.getName());
+		Collection<Integer> characters = arg0.getCharacters();
+		if (characters!=null){
+			Collection<Map<String, Object>> characterList = new ArrayList<Map<String,Object>>();
+			for (Integer character:characters){
+				final Map<String, Object> characterMap = new HashMap<String, Object>();
+				characterMap.put("id", character);
+				characterMap.put("link",new StringBuilder(request.getContextPath()).append("/partida/").append(arg0.getId()).append("/personaje/").append(character).toString());
+				characterList.add(characterMap);
+			}
+			map.put("characters", characterList);
+		}
 		map.put("link", new StringBuilder(request.getContextPath()).append("/partida/").append(arg0.getId()).toString());
 		arg1.writeObject(map);
 	}

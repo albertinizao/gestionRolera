@@ -1,5 +1,7 @@
 package com.gestion.rel.domain;
 
+import java.util.Collection;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -14,6 +16,10 @@ public class Partida {
 	@Id
 	private Integer id;
 
+	private String name;
+	
+	private Collection<Integer> characters;
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -22,8 +28,6 @@ public class Partida {
 		return this.id;
 	}
 
-	private String name;
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -31,6 +35,17 @@ public class Partida {
 	public String getName() {
 		return this.name;
 	}
+
+	
+    public Collection<Integer> getCharacters() {
+    	return characters;
+    }
+
+	
+    public void setCharacters(Collection<Integer> characters) {
+    	this.characters = characters;
+    }
+	
 
 	@Override
 	public String toString() {
@@ -46,4 +61,5 @@ public class Partida {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
+	
 }
