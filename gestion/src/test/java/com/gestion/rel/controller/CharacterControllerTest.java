@@ -1,21 +1,27 @@
 package com.gestion.rel.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnit44Runner;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gestion.rel.domain.Character;
 import com.gestion.rel.service.CharacterService;
 
 
+@RunWith(MockitoJUnitRunner.class)
 public class CharacterControllerTest {
 	
 	@Mock
@@ -23,11 +29,6 @@ public class CharacterControllerTest {
 
 	@InjectMocks
 	private CharacterController characterController;
-
-	@Before
-	public void initMocks() {
-		MockitoAnnotations.initMocks(this);
-	}
 	
 	@Test
 	public void givenGameIdThenReturnAllCharacter(){
