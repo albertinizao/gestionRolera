@@ -50,15 +50,15 @@ public class Game {
     }
 	
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
-
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+//	@Override
+//	public String toString() {
+//		return ToStringBuilder.reflectionToString(this);
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return HashCodeBuilder.reflectionHashCode(this);
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

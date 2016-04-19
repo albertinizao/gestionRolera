@@ -14,17 +14,13 @@ import com.gestion.rel.domain.Character;
 @Repository
 public class CharacterRepository {
 
-	private Query getPJQuery(Integer gameId) {
+	protected Query getPJQuery(Integer gameId) {
 		Criteria criteria = Criteria.where("game").is(gameId);
 		return Query.query(criteria);
 	}
 
 	@Resource
 	private MongoTemplate template;
-
-	public long getCount(Integer gameId) {
-		return template.count(getPJQuery(gameId), Character.class);
-	}
 
 	public Collection<Character> getAll(Integer gameId) {
 		return template.find(getPJQuery(gameId), Character.class);

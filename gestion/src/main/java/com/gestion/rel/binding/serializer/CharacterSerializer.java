@@ -33,7 +33,7 @@ public class CharacterSerializer extends JsonSerializer<Character> {
 		map.put("game", game);
 		map.put("link",
 		        new StringBuilder(request.getContextPath()).append("/").append(UrlPathConstants.GAME).append("/")
-		                .append(arg0.getId()).append("/").append(UrlPathConstants.CHARACTER).append("/")
+		                .append(arg0.getGame()).append("/").append(UrlPathConstants.CHARACTER).append("/")
 		                .append(arg0.getId()).toString());
 		arg1.writeObject(map);
 	}

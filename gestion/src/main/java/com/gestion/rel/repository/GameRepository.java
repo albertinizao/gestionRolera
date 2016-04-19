@@ -1,7 +1,6 @@
 package com.gestion.rel.repository;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Resource;
 
