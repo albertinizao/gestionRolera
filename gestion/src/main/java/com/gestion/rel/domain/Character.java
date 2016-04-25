@@ -1,10 +1,10 @@
 package com.gestion.rel.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.gestion.rel.binding.serializer.CharacterSerializer;
@@ -18,6 +18,12 @@ public class Character {
 	private String name;
 
 	private Integer game;
+
+	private Collection<Relationship> relationShips;
+	
+	public Character(){
+		relationShips=new ArrayList<Relationship>();
+	}
 
 	public int getId() {
 		return id;
@@ -43,15 +49,23 @@ public class Character {
 		this.game = game;
 	}
 
-//	@Override
-//	public String toString() {
-//		return ToStringBuilder.reflectionToString(this);
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return HashCodeBuilder.reflectionHashCode(this);
-//	}
+	// @Override
+	// public String toString() {
+	// return ToStringBuilder.reflectionToString(this);
+	// }
+	//
+	// @Override
+	// public int hashCode() {
+	// return HashCodeBuilder.reflectionHashCode(this);
+	// }
+
+	public Collection<Relationship> getRelationShips() {
+		return relationShips;
+	}
+
+	public void setRelationShips(Collection<Relationship> relationShips) {
+		this.relationShips = relationShips;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

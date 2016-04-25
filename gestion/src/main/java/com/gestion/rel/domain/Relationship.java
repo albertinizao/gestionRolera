@@ -10,8 +10,10 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.TreeMap;
 
-public class Relationship {
+import org.springframework.data.annotation.Id;
 
+public class Relationship {
+	
 	private Integer characterId;
 
 	private Map<Date, Double> working;
@@ -31,6 +33,17 @@ public class Relationship {
 	private Comparator<Entry<Date, Double>> comparator = (a, b) -> a.getKey().compareTo(b.getKey());
 
 	public Relationship() {
+		working = new TreeMap<Date, Double>();
+		confidential = new TreeMap<Date, Double>();
+		loyalty = new TreeMap<Date, Double>();
+		trust = new TreeMap<Date, Double>();
+		respect = new TreeMap<Date, Double>();
+		funny = new TreeMap<Date, Double>();
+		affection = new TreeMap<Date, Double>();
+	}
+
+	public Relationship(Integer characterId) {
+		this.characterId=characterId;
 		working = new TreeMap<Date, Double>();
 		confidential = new TreeMap<Date, Double>();
 		loyalty = new TreeMap<Date, Double>();

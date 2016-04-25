@@ -89,6 +89,69 @@ public class RelationshipTest {
 	}
 	
 	@Test
+	public void getMaxAffection(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setAffection(map);
+		assertEquals(max,relationship.getMaxAffection().get().getValue());
+	}
+	
+	@Test
+	public void getMaxConfidential(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setConfidential(map);
+		assertEquals(max,relationship.getMaxConfidential().get().getValue());
+	}
+	
+	@Test
+	public void getMaxFunny(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setFunny(map);
+		assertEquals(max,relationship.getMaxFunny().get().getValue());
+	}
+	
+	@Test
+	public void getMaxLoyalty(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setLoyalty(map);
+		assertEquals(max,relationship.getMaxLoyalty().get().getValue());
+	}
+	
+	@Test
+	public void getMaxRespect(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setRespect(map);
+		assertEquals(max,relationship.getMaxRespect().get().getValue());
+	}
+	
+	@Test
+	public void getMaxTrust(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setTrust(map);
+		assertEquals(max,relationship.getMaxTrust().get().getValue());
+	}
+	
+	@Test
+	public void getMaxWorking(){
+		Double max = 5D;
+		Map<Date, Double> map = new TreeMap<Date, Double>();
+		map.put(new Date(), max);
+		relationship.setWorking(map);
+		assertEquals(max,relationship.getMaxWorking().get().getValue());
+	}
+	
+	@Test
 	public void getAverage(){
 		Map<Date, Double> working = new TreeMap<Date, Double>();
 		working.put(new Date(), 5D);
@@ -123,7 +186,7 @@ public class RelationshipTest {
 		funny.put(future, ++value);
 		loyalty.put(future, ++value);
 		affection.put(future, ++value);
-		Double expected = value/2;
+		Double expected = (1+value)/2;
 		Double actual = relationship.getAverage();
 		assertEquals(expected,actual);
 		
