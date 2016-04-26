@@ -32,4 +32,6 @@
         <property name="dbName" value="${mongo.database}"/>  
         <property name="file" value="classpath:/changeSets/mongeez.xml"/>  
     </bean>  
+    
+    
 </beans> 

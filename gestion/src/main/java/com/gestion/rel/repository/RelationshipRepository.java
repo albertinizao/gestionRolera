@@ -1,5 +1,7 @@
 package com.gestion.rel.repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -7,10 +9,16 @@ import java.util.Optional;
 
 import javax.annotation.Resource;
 
+import org.bson.BSON;
+import org.bson.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.gestion.rel.domain.Character;
 import com.gestion.rel.domain.Relationship;
@@ -24,6 +32,41 @@ public class RelationshipRepository {
 
 	@Resource
 	private MongoTemplate template;
+	
+	@Autowired
+	private WebDataBinder binder;
+	
+	@InitBinder
+	void registerConverters(WebDataBinder binder) {
+		if (binder.getConversionService() instanceof GenericConversionService) {
+			GenericConversionService conversionService = (GenericConversionService) binder.getConversionService();
+			conversionService.addConverter(Converter<S, T>);
+		}
+	}
+	
+	public RelationshipRepository(){
+		registerConverters(binder);
+		BSON.addEncodingHook(Date.class, new Transformer() {
+			
+			@Override
+			public Object transform(Object objectToTransform) {
+				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyy");
+				try {
+	                return sdf.parse((String)objectToTransform);
+                } catch (ParseException e) {
+	                return null;
+                }
+			}
+		});
+		BSON.addDecodingHook(Date.class, new Transformer() {
+			
+			@Override
+			public Object transform(Object objectToTransform) {
+				SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyy");
+				return sdf.format(objectToTransform);
+			}
+		});
+	}
 
 	public Collection<Relationship> getAll(Integer charId) {
 		Character character = characterRepository.getById(charId);
