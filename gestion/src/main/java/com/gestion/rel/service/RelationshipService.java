@@ -1,12 +1,12 @@
 package com.gestion.rel.service;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gestion.rel.domain.Relation;
 import com.gestion.rel.domain.Relationship;
 import com.gestion.rel.repository.RelationshipRepository;
 
@@ -24,7 +24,7 @@ public class RelationshipService {
 		return relationshipRepository.getByOtherCharacter(charId, otherId);
 	}
 
-	public Map<Date, Double> get(Integer charId, Integer otherId, String type) {
+	public Collection<Relation> get(Integer charId, Integer otherId, String type) {
 		return relationshipRepository.get(charId, otherId, type);
 	}
 
@@ -32,7 +32,7 @@ public class RelationshipService {
 		relationshipRepository.addValue(charId, otherId, type, newValue);
 	}
 
-	public void remove(Integer charId, Integer otherId, String type, Date date) {
+	public void remove(Integer charId, Integer otherId, String type, Long date) {
 		relationshipRepository.remove(charId, otherId, type, date);
 	}
 

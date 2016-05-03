@@ -2,14 +2,11 @@ package com.gestion.rel.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +18,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.gestion.rel.domain.Character;
+import com.gestion.rel.domain.Relation;
 import com.gestion.rel.domain.Relationship;
 import com.gestion.rel.utils.UrlPathConstants;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class RelationshipRepositoryTest {
@@ -36,114 +33,114 @@ public class RelationshipRepositoryTest {
 
 	@InjectMocks
 	private RelationshipRepository relationshipRepository;
-	
+
 	private static Integer CHAR_ID = 1;
-	
+
 	@Test
-	public void givenCharIdThenGetRelation(){
+	public void givenCharIdThenGetRelation() {
 		Character character = new Character();
 		Collection<Relationship> expected = new ArrayList<Relationship>();
 		expected.add(new Relationship());
 		character.setRelationShips(expected);
 		Mockito.when(characterRepository.getById(CHAR_ID)).thenReturn(character);
 		Collection<Relationship> actual = relationshipRepository.getAll(CHAR_ID);
-		assertEquals(expected,actual);		
+		assertEquals(expected, actual);
 	}
-	
+
 	@Test
-	public void givenCharIdAndOtherIdThenGetRelationship(){
+	public void givenCharIdAndOtherIdThenGetRelationship() {
 		Integer otherId = 2;
 		Character character = new Character();
 		Collection<Relationship> collection = new ArrayList<Relationship>();
-		collection.add(new Relationship(otherId-1));
+		collection.add(new Relationship(otherId - 1));
 		Relationship expected = new Relationship(otherId);
 		collection.add(expected);
-		collection.add(new Relationship(otherId+1));
+		collection.add(new Relationship(otherId + 1));
 		character.setRelationShips(collection);
 		Mockito.when(characterRepository.getById(CHAR_ID)).thenReturn(character);
 		Relationship actual = relationshipRepository.getByOtherCharacter(CHAR_ID, otherId);
-		assertEquals(expected,actual);		
+		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void getRelationMapByAffection(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setAffection(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.AFFECTION);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.AFFECTION);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test
 	public void getRelationMapByConfidential(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setConfidential(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.CONFIDENTIAL);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.CONFIDENTIAL);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test
 	public void getRelationMapByFunny(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setFunny(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.FUNNY);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.FUNNY);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test
 	public void getRelationMapByLoyalty(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setLoyalty(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.LOYALTY);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.LOYALTY);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test
 	public void getRelationMapByRespect(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setRespect(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.RESPECT);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.RESPECT);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test
 	public void getRelationMapByTrust(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setTrust(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.TRUST);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.TRUST);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test
 	public void getRelationMapByWorking(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setWorking(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.WORKING);
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, UrlPathConstants.WORKING);
 		assertEquals(expected,actual);		
 	}
-	
+
 	@Test(expected=IllegalArgumentException.class)
 	public void getRelationMapByMiss(){
 		Relationship relationship = new Relationship();
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setWorking(expected);
-		Map<Date, Double> actual = relationshipRepository.getRelationMapByType(relationship, "falso");
+		Collection<Relation> actual = relationshipRepository.getRelationMapByType(relationship, "falso");
 	}
-	
+
 	@Test
 	public void givenCharIdOtherCharIdAndTypeReturnRelationshipMap(){
 		Integer otherId = 2;
@@ -151,17 +148,17 @@ public class RelationshipRepositoryTest {
 		Collection<Relationship> collection = new ArrayList<Relationship>();
 		collection.add(new Relationship(otherId-1));
 		Relationship relationship = new Relationship(otherId);
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setWorking(expected);
 		collection.add(relationship);
 		collection.add(new Relationship(otherId+1));
 		character.setRelationShips(collection);
 		Mockito.when(characterRepository.getById(CHAR_ID)).thenReturn(character);
-		Map<Date, Double> actual = relationshipRepository.get(CHAR_ID, otherId, UrlPathConstants.WORKING);
+		Collection<Relation> actual = relationshipRepository.get(CHAR_ID, otherId, UrlPathConstants.WORKING);
 		assertEquals(expected,actual);	
 	}
-	
+
 	@Test
 	public void addValue(){
 		Double addToMax=1D;
@@ -171,14 +168,14 @@ public class RelationshipRepositoryTest {
 		Collection<Relationship> collection = new ArrayList<Relationship>();
 		collection.add(new Relationship(otherId-1));
 		Relationship relationship = new Relationship(otherId);
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(new Date(), 5D);
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(1L, 5D));
 		relationship.setWorking(expected);
 		collection.add(relationship);
 		collection.add(new Relationship(otherId+1));
 		character.setRelationShips(collection);
 		Mockito.when(characterRepository.getById(CHAR_ID)).thenReturn(character);
-		Map<Date, Double> previous = new HashMap<Date, Double>(expected);
+		Collection<Relation> previous = new ArrayList<Relation>(expected);
 		Relationship relPrevious = new Relationship(otherId);
 		relPrevious.setWorking(previous);
 		relationshipRepository.addValue(CHAR_ID, otherId, UrlPathConstants.WORKING, relationship.getMaxWorking().get().getValue()+addToMax);
@@ -190,12 +187,12 @@ public class RelationshipRepositoryTest {
 		assertNotEquals(relPrevious,actual);
 		assertEquals(new Double(relPrevious.getMaxWorking().get().getValue()+addToMax), actual.getMaxWorking().get().getValue());
 	}
-	
+
 	@Test
-	public void remove(){
-		Double addToMax=1D;
+	public void remove() {
+		Double addToMax = 1D;
 		Double oldValue = 4D;
-		Double newValue = oldValue*2;
+		Double newValue = oldValue * 2;
 		Integer otherId = 2;
 		Date date = new Date();
 		GregorianCalendar gc = new GregorianCalendar();
@@ -203,26 +200,27 @@ public class RelationshipRepositoryTest {
 		gc.add(GregorianCalendar.DAY_OF_MONTH, -1);
 		Character character = new Character();
 		Collection<Relationship> collection = new ArrayList<Relationship>();
-		collection.add(new Relationship(otherId-1));
+		collection.add(new Relationship(otherId - 1));
 		Relationship relationship = new Relationship(otherId);
-		Map<Date, Double> expected = new HashMap<Date, Double>();
-		expected.put(date, newValue);
-		expected.put(gc.getTime(), oldValue);//always less than other
+		Collection<Relation> expected = new ArrayList<Relation>();
+		expected.add(new Relation(date.getTime(), newValue));
+		expected.add(new Relation(gc.getTime().getTime(), oldValue));// always less than other
 		relationship.setWorking(expected);
 		collection.add(relationship);
-		collection.add(new Relationship(otherId+1));
+		collection.add(new Relationship(otherId + 1));
 		character.setRelationShips(collection);
 		Mockito.when(characterRepository.getById(CHAR_ID)).thenReturn(character);
-		Map<Date, Double> previous = new HashMap<Date, Double>(expected);
+		Collection<Relation> previous = new ArrayList<Relation>(expected);
 		Relationship relPrevious = new Relationship(otherId);
 		relPrevious.setWorking(previous);
-		relationshipRepository.remove(CHAR_ID, otherId, UrlPathConstants.WORKING, date);
+		relationshipRepository.remove(CHAR_ID, otherId, UrlPathConstants.WORKING, date.getTime());
 		ArgumentCaptor<Character> firstFooCaptor = ArgumentCaptor.forClass(Character.class);
 		Mockito.verify(characterRepository).saveOrUpdate(firstFooCaptor.capture());
 		Collection<Relationship> relations = firstFooCaptor.getValue().getRelationShips();
-		Relationship actual = relations.stream().filter(r -> r.getCharacterId().equals(otherId)).findFirst().orElse(new Relationship(otherId));
+		Relationship actual = relations.stream().filter(r -> r.getCharacterId().equals(otherId)).findFirst()
+		        .orElse(new Relationship(otherId));
 
-		assertNotEquals(relPrevious,actual);
+		assertNotEquals(relPrevious, actual);
 		assertEquals(oldValue, actual.getMaxWorking().get().getValue());
 	}
 

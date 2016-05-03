@@ -3,85 +3,79 @@ package com.gestion.rel.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.TreeMap;
-
-import org.springframework.data.annotation.Id;
 
 public class Relationship {
-	
+
 	private Integer characterId;
 
-	private Map<Date, Double> working;
+	private Collection<Relation> working;
 
-	private Map<Date, Double> confidential;
+	private Collection<Relation> confidential;
 
-	private Map<Date, Double> loyalty;
+	private Collection<Relation> loyalty;
 
-	private Map<Date, Double> trust;
+	private Collection<Relation> trust;
 
-	private Map<Date, Double> respect;
+	private Collection<Relation> respect;
 
-	private Map<Date, Double> funny;
+	private Collection<Relation> funny;
 
-	private Map<Date, Double> affection;
-	
-	private Comparator<Entry<Date, Double>> comparator = (a, b) -> a.getKey().compareTo(b.getKey());
+	private Collection<Relation> affection;
+
+	private RelationComparator comparator = new RelationComparator();
 
 	public Relationship() {
-		working = new TreeMap<Date, Double>();
-		confidential = new TreeMap<Date, Double>();
-		loyalty = new TreeMap<Date, Double>();
-		trust = new TreeMap<Date, Double>();
-		respect = new TreeMap<Date, Double>();
-		funny = new TreeMap<Date, Double>();
-		affection = new TreeMap<Date, Double>();
+		working = new ArrayList<Relation>();
+		confidential = new ArrayList<Relation>();
+		loyalty = new ArrayList<Relation>();
+		trust = new ArrayList<Relation>();
+		respect = new ArrayList<Relation>();
+		funny = new ArrayList<Relation>();
+		affection = new ArrayList<Relation>();
 	}
 
 	public Relationship(Integer characterId) {
-		this.characterId=characterId;
-		working = new TreeMap<Date, Double>();
-		confidential = new TreeMap<Date, Double>();
-		loyalty = new TreeMap<Date, Double>();
-		trust = new TreeMap<Date, Double>();
-		respect = new TreeMap<Date, Double>();
-		funny = new TreeMap<Date, Double>();
-		affection = new TreeMap<Date, Double>();
+		this.characterId = characterId;
+		working = new ArrayList<Relation>();
+		confidential = new ArrayList<Relation>();
+		loyalty = new ArrayList<Relation>();
+		trust = new ArrayList<Relation>();
+		respect = new ArrayList<Relation>();
+		funny = new ArrayList<Relation>();
+		affection = new ArrayList<Relation>();
 	}
 
 	public final Integer getCharacterId() {
 		return characterId;
 	}
 
-	public final Map<Date, Double> getWorking() {
+	public final Collection<Relation> getWorking() {
 		return working;
 	}
 
-	public final Map<Date, Double> getConfidential() {
+	public final Collection<Relation> getConfidential() {
 		return confidential;
 	}
 
-	public final Map<Date, Double> getLoyalty() {
+	public final Collection<Relation> getLoyalty() {
 		return loyalty;
 	}
 
-	public final Map<Date, Double> getTrust() {
+	public final Collection<Relation> getTrust() {
 		return trust;
 	}
 
-	public final Map<Date, Double> getRespect() {
+	public final Collection<Relation> getRespect() {
 		return respect;
 	}
 
-	public final Map<Date, Double> getFunny() {
+	public final Collection<Relation> getFunny() {
 		return funny;
 	}
 
-	public final Map<Date, Double> getAffection() {
+	public final Collection<Relation> getAffection() {
 		return affection;
 	}
 
@@ -89,65 +83,65 @@ public class Relationship {
 		this.characterId = characterId;
 	}
 
-	public void setWorking(Map<Date, Double> working) {
+	public void setWorking(Collection<Relation> working) {
 		this.working = working;
 	}
 
-	public void setConfidential(Map<Date, Double> confidential) {
+	public void setConfidential(Collection<Relation> confidential) {
 		this.confidential = confidential;
 	}
 
-	public void setLoyalty(Map<Date, Double> loyalty) {
+	public void setLoyalty(Collection<Relation> loyalty) {
 		this.loyalty = loyalty;
 	}
 
-	public void setTrust(Map<Date, Double> trust) {
+	public void setTrust(Collection<Relation> trust) {
 		this.trust = trust;
 	}
 
-	public void setRespect(Map<Date, Double> respect) {
+	public void setRespect(Collection<Relation> respect) {
 		this.respect = respect;
 	}
 
-	public void setFunny(Map<Date, Double> funny) {
+	public void setFunny(Collection<Relation> funny) {
 		this.funny = funny;
 	}
 
-	public void setAffection(Map<Date, Double> affection) {
+	public void setAffection(Collection<Relation> affection) {
 		this.affection = affection;
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxWorking() {
-		return working.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxWorking() {
+		return working.stream().max(comparator);
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxConfidential() {
-		return confidential.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxConfidential() {
+		return confidential.stream().max(comparator);
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxLoyalty() {
-		return loyalty.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxLoyalty() {
+		return loyalty.stream().max(comparator);
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxTrust() {
-		return trust.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxTrust() {
+		return trust.stream().max(comparator);
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxRespect() {
-		return respect.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxRespect() {
+		return respect.stream().max(comparator);
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxFunny() {
-		return funny.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxFunny() {
+		return funny.stream().max(comparator);
 	}
 
-	public final Optional<Entry<Date, Double>> getMaxAffection() {
-		return affection.entrySet().stream().max(comparator);
+	public final Optional<Relation> getMaxAffection() {
+		return affection.stream().max(comparator);
 	}
 
 	public Double getAverage() {
 		Collection<Double> values = new ArrayList<Double>();
-		Optional<Entry<Date, Double>> value = getMaxWorking();
+		Optional<Relation> value = getMaxWorking();
 		if (value.isPresent()) values.add(value.get().getValue());
 		value = getMaxConfidential();
 		if (value.isPresent()) values.add(value.get().getValue());
@@ -161,7 +155,7 @@ public class Relationship {
 		if (value.isPresent()) values.add(value.get().getValue());
 		value = getMaxAffection();
 		if (value.isPresent()) values.add(value.get().getValue());
-		OptionalDouble response = values.stream().mapToDouble((a)->a).average();
+		OptionalDouble response = values.stream().mapToDouble((a) -> a).average();
 		return response.orElse(0D);
 	}
 }

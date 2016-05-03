@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.gestion.rel.domain.Relation;
 import com.gestion.rel.domain.Relationship;
 import com.gestion.rel.repository.RelationshipRepository;
 
@@ -49,11 +50,11 @@ public class RelationshipServiceTest {
 	
 	@Test
 	public void get(){ 
-		Map<Date, Double> expected = new HashMap<Date, Double>();
+		Collection<Relation> expected = new ArrayList<Relation>();
 		Integer charId=1; Integer otherId=2; String type="Pepe";
-		expected.put(new Date(), 1D);
+		expected.add(new Relation(1L, 1D));
 		Mockito.when(relationshipRepository.get(charId, otherId, type)).thenReturn(expected);
-		Map<Date, Double> actual = relationshipService.get(charId, otherId, type);
+		Collection<Relation> actual = relationshipService.get(charId, otherId, type);
 		assertEquals(expected, actual);
 	}
 	
@@ -72,7 +73,7 @@ public class RelationshipServiceTest {
 		Integer charId=1;
 		Integer otherId=2;
 		String type="type";
-		Date date=new Date();
+		Long date=1L;
 		relationshipService.remove(charId, otherId, type, date);
 		Mockito.verify(relationshipRepository).remove(charId, otherId, type, date);
 	}

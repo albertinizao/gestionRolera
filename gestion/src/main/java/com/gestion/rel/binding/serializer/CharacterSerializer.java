@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.gestion.rel.domain.Character;
+import com.gestion.rel.domain.Relation;
 import com.gestion.rel.domain.Relationship;
 import com.gestion.rel.utils.UrlPathConstants;
 
@@ -58,7 +59,7 @@ public class CharacterSerializer extends JsonSerializer<Character> {
 				relationMap.put("character", otherChar);
 
 				final Map<String, Object> working = new HashMap<String, Object>();
-				Optional<Entry<Date, Double>> optional = relation.getMaxWorking();
+				Optional<Relation> optional = relation.getMaxWorking();
 				if (optional.isPresent()) {
 					working.put("value", optional.get().getValue());
 					working.put("link",

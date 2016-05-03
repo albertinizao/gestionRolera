@@ -1,21 +1,18 @@
 package com.gestion.rel.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gestion.rel.domain.Relation;
+import com.gestion.rel.domain.RelationComparator;
 import com.gestion.rel.domain.Relationship;
 import com.gestion.rel.service.RelationshipService;
 import com.gestion.rel.utils.UrlPathConstants;
@@ -25,6 +22,13 @@ public class RelationshipController {
 
 	@Autowired
 	private RelationshipService relationshipService;
+
+	// @Autowired
+	// private WebDataBinder binder;
+
+	public RelationshipController() {
+		// initBinder(binder);
+	}
 
 	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{gameId}/" + UrlPathConstants.CHARACTER + "/{charId}/"
 	        + UrlPathConstants.RELATIONSHIP, method = RequestMethod.GET)
@@ -44,9 +48,10 @@ public class RelationshipController {
 	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{gameId}/" + UrlPathConstants.CHARACTER + "/{charId}/"
 	        + UrlPathConstants.RELATIONSHIP + "/{otherCharId}/{type}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public Map<Date, Double> get(@PathVariable("charId") Integer charId,
+	public Collection<Relation> get(@PathVariable("charId") Integer charId,
 	        @PathVariable("otherCharId") Integer otherCharId, @PathVariable("type") String type) {
-		return relationshipService.get(charId, otherCharId, type);
+		return relationshipService.get(charId, otherCharId, type).stream()
+		        .sorted(new RelationComparator()).collect(Collectors.toList());
 	}
 
 	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{gameId}/" + UrlPathConstants.CHARACTER + "/{charId}/"
@@ -61,13 +66,7 @@ public class RelationshipController {
 	        + UrlPathConstants.RELATIONSHIP + "/{otherCharId}/{type}/{date}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void delete(@PathVariable("charId") Integer charId, @PathVariable("otherCharId") Integer otherCharId,
-	        @PathVariable("type") String type, @PathVariable("date") Date date) {
+	        @PathVariable("type") String type, @PathVariable("date") Long date) {
 		relationshipService.remove(charId, otherCharId, type, date);
-	}
-
-	@InitBinder
-	public void initBinder(final WebDataBinder binder) {
-		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 }
