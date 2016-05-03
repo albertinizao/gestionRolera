@@ -209,6 +209,8 @@ public class RelationshipRepositoryTest {
 		collection.add(relationship);
 		collection.add(new Relationship(otherId + 1));
 		character.setRelationShips(collection);
+		//Fin de seteos
+		
 		Mockito.when(characterRepository.getById(CHAR_ID)).thenReturn(character);
 		Collection<Relation> previous = new ArrayList<Relation>(expected);
 		Relationship relPrevious = new Relationship(otherId);

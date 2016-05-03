@@ -95,7 +95,13 @@ public class RelationshipRepository {
 		Character character = characterRepository.getById(charId);
 		Relationship relation = getByOtherCharacter(character.getRelationShips(), otherId);
 		Collection<Relation> relationMap = getRelationMapByType(relation, type);
-		relationMap.remove(date);
+		Relation toRemove = null;
+		for (Relation relationElement:relationMap){
+			if (relationElement.getKey().equals(date)){
+				toRemove=relationElement;
+			}
+		}
+		relationMap.remove(toRemove);
 		characterRepository.saveOrUpdate(character);
 	}
 
