@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,7 @@ public class GameController {
 	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{id}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Game get(@PathVariable("id") Integer id) {
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return gameService.get(id);
 	}
 

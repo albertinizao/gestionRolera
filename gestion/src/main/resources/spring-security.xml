@@ -6,8 +6,8 @@
             http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<bean id="google2Provider" class="org.scribe.up.provider.impl.Google2Provider">
-		<property name="key" 
-			value="30564562842-q13okkf5le2l5b98mvognn0eo3frgvo7.apps.googleusercontent.com" /> 
+		<property name="key"
+			value="30564562842-q13okkf5le2l5b98mvognn0eo3frgvo7.apps.googleusercontent.com" />
 		<property name="secret" value="Un78dbqW-Wo_fMf9ldLfzh3P" />
 		<property name="scope" value="EMAIL_AND_PROFILE" />
 	</bean>
@@ -15,8 +15,8 @@
 	<bean id="providersDefinition" class="org.scribe.up.provider.ProvidersDefinition">
 		<property name="baseUrl"
 			value="http://localhost:8080/rel/j_spring_oauth_security_check" />
-<!-- 		<property name="baseUrl" -->
-<!-- 			value="http://localhost:8080/pepito" /> -->
+		<!-- <property name="baseUrl" -->
+		<!-- value="http://localhost:8080/pepito" /> -->
 		<property name="providers">
 			<list>
 				<ref bean="google2Provider" />
@@ -31,11 +31,12 @@
 
 	<security:http entry-point-ref="google2EntryPoint">
 		<security:custom-filter after="CAS_FILTER" ref="oAuthFilter" />
-		<security:intercept-url pattern="/game**"
-			access="IS_AUTHENTICATED_FULLY" />
-		<security:intercept-url pattern="/**"
+		<security:intercept-url pattern="/"
 			access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:logout />
+		<security:intercept-url pattern="/**"
+			access="IS_AUTHENTICATED_FULLY" />
+		<security:logout invalidate-session="true" logout-url="/logout"
+			delete-cookies="JSESSIONID" />
 	</security:http>
 
 	<bean id="oAuthProvider"
