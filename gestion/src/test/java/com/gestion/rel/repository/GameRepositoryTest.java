@@ -37,6 +37,28 @@ public class GameRepositoryTest {
 		Query actual = gameRepository.getPJQuery(pjIds);
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void givenPlayerIdsThenBuildQuery() {
+		Collection<String> playersIds = new ArrayList<String>();
+		String playerId = "1";
+		playersIds.add(playerId);
+		Criteria criteria = Criteria.where("players").in(playersIds);
+		Query expected = Query.query(criteria);
+		Query actual = gameRepository.getPlayersQuery(playersIds);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void giveMastersIdsThenBuildQuery() {
+		Collection<String> playersIds = new ArrayList<String>();
+		String playerId = "1";
+		playersIds.add(playerId);
+		Criteria criteria = Criteria.where("masters").in(playersIds);
+		Query expected = Query.query(criteria);
+		Query actual = gameRepository.getMastersQuery(playersIds);
+		assertEquals(expected, actual);
+	}
 	
 	@Test
 	public void shouldInvokeGetAll(){

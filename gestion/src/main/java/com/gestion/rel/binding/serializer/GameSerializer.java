@@ -1,10 +1,10 @@
 package com.gestion.rel.binding.serializer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,8 +14,10 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.gestion.rel.binding.serializer.helper.CharacterHelper;
+import com.gestion.rel.binding.serializer.helper.GameHelper;
+import com.gestion.rel.binding.serializer.helper.UserHelper;
 import com.gestion.rel.domain.Game;
-import com.gestion.rel.utils.UrlPathConstants;
 
 public class GameSerializer extends JsonSerializer<Game> {
 
@@ -23,23 +25,27 @@ public class GameSerializer extends JsonSerializer<Game> {
 	private HttpServletRequest request;
 
 	@Override
-	public void serialize(Game arg0, JsonGenerator arg1, SerializerProvider arg2) throws IOException,
-	        JsonProcessingException {
+	public void serialize(Game arg0, JsonGenerator arg1, SerializerProvider arg2)
+			throws IOException, JsonProcessingException {
 		final Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", arg0.getId());
 		map.put("name", arg0.getName());
-		Collection<Integer> characters = arg0.getCharacters();
-		if (characters!=null){
-			Collection<Map<String, Object>> characterList = new ArrayList<Map<String,Object>>();
-			for (Integer character:characters){
-				final Map<String, Object> characterMap = new HashMap<String, Object>();
-				characterMap.put("id", character);
-				characterMap.put("link",new StringBuilder(request.getContextPath()).append("/").append(UrlPathConstants.GAME).append("/").append(arg0.getId()).append("/").append(UrlPathConstants.CHARACTER).append("/").append(character).toString());
-				characterList.add(characterMap);
-			}
+		Collection<Map<String, Object>> characterList = arg0.getCharacters().stream()
+				.map(f -> CharacterHelper.getInstance(request).getMap(arg0.getId(), f)).collect(Collectors.toList());
+		if (!characterList.isEmpty()) {
 			map.put("characters", characterList);
 		}
-		map.put("link", new StringBuilder(request.getContextPath()).append("/").append(UrlPathConstants.GAME).append("/").append(arg0.getId()).toString());
+		Collection<Map<String, Object>> masterList = arg0.getMasters().stream()
+				.map(f -> UserHelper.getInstance(request).getMap(f)).collect(Collectors.toList());
+		if (!masterList.isEmpty()) {
+			map.put("masters", masterList);
+		}
+		Collection<Map<String, Object>> playerList = arg0.getPlayers().stream()
+				.map(f -> UserHelper.getInstance(request).getMap(f)).collect(Collectors.toList());
+		if (!playerList.isEmpty()) {
+			map.put("players", playerList);
+		}
+		map.put("link", GameHelper.getInstance(request).getLink(arg0.getId()));
 		arg1.writeObject(map);
 	}
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gestion.rel.domain.Game;
 import com.gestion.rel.service.GameService;
 import com.gestion.rel.utils.UrlPathConstants;
+import com.github.leleuj.ss.oauth.client.authentication.OAuthAuthenticationToken;
 
 @RestController
 public class GameController {
@@ -34,7 +35,6 @@ public class GameController {
 	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{id}", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Game get(@PathVariable("id") Integer id) {
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return gameService.get(id);
 	}
 

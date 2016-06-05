@@ -39,6 +39,17 @@ public class CharacterRepositoryTest {
 		Query actual = characterRepository.getPJQuery(gameId);
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void givenUserIdsThenBuildQuery() {
+		Collection<String> playersIds = new ArrayList<String>();
+		String playerId = "1";
+		playersIds.add(playerId);
+		Criteria criteria = Criteria.where("users").in(playersIds);
+		Query expected = Query.query(criteria);
+		Query actual = characterRepository.getUsersQuery(playersIds);
+		assertEquals(expected, actual);
+	}
 	
 	@Test
 	public void shouldInvokeGetAll(){

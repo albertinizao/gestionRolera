@@ -18,11 +18,14 @@ public class Character {
 	private String name;
 
 	private Integer game;
+	
+	private Collection<String> users;
 
 	private Collection<Relationship> relationShips;
 	
 	public Character(){
-		relationShips=new ArrayList<Relationship>();
+		relationShips=new ArrayList<>();
+		users=new ArrayList<>();
 	}
 
 	public int getId() {
@@ -65,6 +68,14 @@ public class Character {
 
 	public void setRelationShips(Collection<Relationship> relationShips) {
 		this.relationShips = relationShips;
+	}
+
+	public Collection<String> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Collection<String> users) {
+		this.users = users;
 	}
 
 	@Override

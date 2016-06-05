@@ -1,5 +1,6 @@
 package com.gestion.rel.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -20,8 +21,18 @@ public class Game {
 	private Integer id;
 
 	private String name;
-	
+
+	private Collection<String> masters;
+
 	private Collection<Integer> characters;
+
+	private Collection<Integer> players;
+
+	public Game() {
+		masters = new ArrayList<>();
+		characters = new ArrayList<>();
+		players = new ArrayList<>();
+	}
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -39,30 +50,43 @@ public class Game {
 		return this.name;
 	}
 
-	
-    public Collection<Integer> getCharacters() {
-    	return characters;
-    }
+	public Collection<Integer> getCharacters() {
+		return characters;
+	}
 
-	
-    public void setCharacters(Collection<Integer> characters) {
-    	this.characters = characters;
-    }
-	
+	public void setCharacters(Collection<Integer> characters) {
+		this.characters = characters;
+	}
 
-//	@Override
-//	public String toString() {
-//		return ToStringBuilder.reflectionToString(this);
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return HashCodeBuilder.reflectionHashCode(this);
-//	}
+	// @Override
+	// public String toString() {
+	// return ToStringBuilder.reflectionToString(this);
+	// }
+	//
+	// @Override
+	// public int hashCode() {
+	// return HashCodeBuilder.reflectionHashCode(this);
+	// }
+
+	public Collection<String> getMasters() {
+		return masters;
+	}
+
+	public void setMasters(Collection<String> masters) {
+		this.masters = masters;
+	}
+
+	public Collection<Integer> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(Collection<Integer> players) {
+		this.players = players;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-	
+
 }

@@ -12,4 +12,5 @@ public interface UrlPathConstants {
 	public static final String RESPECT = "respect";
 	public static final String FUNNY = "funny";
 	public static final String AFFECTION = "affection";
+	public static final String USER = "user";
 }

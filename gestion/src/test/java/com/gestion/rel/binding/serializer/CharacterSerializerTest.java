@@ -7,10 +7,8 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,14 +52,12 @@ public class CharacterSerializerTest {
 		final Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", character.getId());
 		map.put("name", character.getName());
-		map.put("link",
-		        new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		                .append(idGame).append("/").append(UrlPathConstants.CHARACTER).append("/").append(id)
-		                .toString());
+		map.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.append("/").append(UrlPathConstants.CHARACTER).append("/").append(id).toString());
 		final Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("id", idGame);
-		map2.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		        .append(idGame).toString());
+		map2.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.toString());
 		map.put("game", map2);
 		map.put("relationship", new ArrayList<Map<String, Object>>());
 		when(request.getContextPath()).thenReturn(prevUrl);
@@ -89,22 +85,18 @@ public class CharacterSerializerTest {
 		final Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", character.getId());
 		map.put("name", character.getName());
-		map.put("link",
-		        new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		                .append(idGame).append("/").append(UrlPathConstants.CHARACTER).append("/").append(id)
-		                .toString());
+		map.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.append("/").append(UrlPathConstants.CHARACTER).append("/").append(id).toString());
 		final Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("id", idGame);
-		map2.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		        .append(idGame).toString());
+		map2.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.toString());
 		map.put("game", map2);
 		final Map<String, Object> map3 = new HashMap<String, Object>();
 		final Map<String, Object> map4 = new HashMap<String, Object>();
 		map4.put("id", otherPJId);
-		map4.put("link",
-		        new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		                .append(idGame).append("/").append(UrlPathConstants.CHARACTER).append("/").append(otherPJId)
-		                .toString());
+		map4.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.append("/").append(UrlPathConstants.CHARACTER).append("/").append(otherPJId).toString());
 		map3.put("character", map4);
 		map3.put("relation", 0D);
 		Collection<Map<String, Object>> relationShipList = new ArrayList<Map<String, Object>>();
@@ -114,7 +106,6 @@ public class CharacterSerializerTest {
 		characterSerializer.serialize(character, jsonGenerator, null);
 		verify(jsonGenerator).writeObject(map);
 	}
-
 
 	@Test
 	public void givenCharacterWithRelationThenSerializeIt() throws JsonProcessingException, IOException {
@@ -165,17 +156,32 @@ public class CharacterSerializerTest {
 		final Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", character.getId());
 		map.put("name", character.getName());
-		map.put("link",
-		        new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		                .append(idGame).append("/").append(UrlPathConstants.CHARACTER).append("/").append(id)
-		                .toString());
+		map.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.append("/").append(UrlPathConstants.CHARACTER).append("/").append(id).toString());
 		final Map<String, Object> map2 = new HashMap<String, Object>();
 		map2.put("id", idGame);
-		map2.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/")
-		        .append(idGame).toString());
+		map2.put("link", new StringBuilder(prevUrl).append("/").append(UrlPathConstants.GAME).append("/").append(idGame)
+				.toString());
 		map.put("game", map2);
 		when(request.getContextPath()).thenReturn(prevUrl);
 		characterSerializer.serialize(character, jsonGenerator, null);
-//		verify(jsonGenerator).writeObject(JSONToMap.jsonToMap("{game={link=\"http://pepe.com/game/2\", id=\"2\"}, name=name, link=\"http://pepe.com/game/2/character/1\", id=\"1\", relationship=[{trust={link=\"http://pepe.com/game/2/character/1/relationship/trust\", value=7.0}, character={link=\"http://pepe.com/game/2/character/2\", id=\"2\"}, loyalty={link=\"http://pepe.com/game/2/character/1/relationship/loyalty\", value=5.0}, affection={link=\"http://pepe.com/game/2/character/1/relationship/affection\", value=1.0}, working={link=\"http://pepe.com/game/2/character/1/relationship/working\", value=2.0}, respect={link=\"http://pepe.com/game/2/character/1/relationship/respect\", value=6.0}, funny={link=\"http://pepe.com/game/2/character/1/relationship/funny\", value=4.0}, confidential={link=\"http://pepe.com/game/2/character/1/relationship/confidential\", value=3.0}, relation=4.0}]}"));
+		// verify(jsonGenerator).writeObject(JSONToMap.jsonToMap("{game={link=\"http://pepe.com/game/2\",
+		// id=\"2\"}, name=name, link=\"http://pepe.com/game/2/character/1\",
+		// id=\"1\",
+		// relationship=[{trust={link=\"http://pepe.com/game/2/character/1/relationship/trust\",
+		// value=7.0}, character={link=\"http://pepe.com/game/2/character/2\",
+		// id=\"2\"},
+		// loyalty={link=\"http://pepe.com/game/2/character/1/relationship/loyalty\",
+		// value=5.0},
+		// affection={link=\"http://pepe.com/game/2/character/1/relationship/affection\",
+		// value=1.0},
+		// working={link=\"http://pepe.com/game/2/character/1/relationship/working\",
+		// value=2.0},
+		// respect={link=\"http://pepe.com/game/2/character/1/relationship/respect\",
+		// value=6.0},
+		// funny={link=\"http://pepe.com/game/2/character/1/relationship/funny\",
+		// value=4.0},
+		// confidential={link=\"http://pepe.com/game/2/character/1/relationship/confidential\",
+		// value=3.0}, relation=4.0}]}"));
 	}
 }

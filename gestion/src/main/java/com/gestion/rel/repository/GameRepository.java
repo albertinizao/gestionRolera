@@ -21,6 +21,16 @@ public class GameRepository {
 		return Query.query(criteria);
 	}
 
+	protected Query getPlayersQuery(Collection<String> users) {
+		Criteria criteria = Criteria.where("players").in(users);
+		return Query.query(criteria);
+	}
+
+	protected Query getMastersQuery(Collection<String> users) {
+		Criteria criteria = Criteria.where("masters").in(users);
+		return Query.query(criteria);
+	}
+
 	@Resource
 	private MongoTemplate template;
 
@@ -30,6 +40,14 @@ public class GameRepository {
 
 	public Collection<Game> getAllByPJ(Collection<Integer> pjIds) {
 		return template.find(getPJQuery(pjIds), Game.class);
+	}
+
+	public Collection<Game> getAllByPlayers(Collection<String> users) {
+		return template.find(getPlayersQuery(users), Game.class);
+	}
+
+	public Collection<Game> getAllByMasters(Collection<String> users) {
+		return template.find(getMastersQuery(users), Game.class);
 	}
 
 	public Game getById(Integer id) {

@@ -19,11 +19,20 @@ public class CharacterRepository {
 		return Query.query(criteria);
 	}
 
+	protected Query getUsersQuery(Collection<String> users) {
+		Criteria criteria = Criteria.where("users").in(users);
+		return Query.query(criteria);
+	}
+
 	@Resource
 	private MongoTemplate template;
 
 	public Collection<Character> getAll(Integer gameId) {
 		return template.find(getPJQuery(gameId), Character.class);
+	}
+
+	public Collection<Character> getByUsers(Collection<String> users) {
+		return template.find(getUsersQuery(users), Character.class);
 	}
 
 	public Character getById(Integer id) {
