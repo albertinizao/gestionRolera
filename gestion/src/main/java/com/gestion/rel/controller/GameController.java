@@ -1,11 +1,11 @@
 package com.gestion.rel.controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +45,9 @@ public class GameController {
 		Integer newId = newIdOptional.isPresent() ? newIdOptional.get() : 0;
 		Game game = new Game();
 		game.setId(++newId);
+		game.setMasters(Arrays.asList(
+				new String[] { ((OAuthAuthenticationToken) SecurityContextHolder.getContext().getAuthentication())
+						.getUserProfile().getId() }));
 		gameService.saveOrUpdate(game);
 		return newId;
 	}
@@ -54,6 +57,16 @@ public class GameController {
 	public void update(@PathVariable("id") Integer id, @RequestBody Game game) {
 		gameService.saveOrUpdate(game);
 	}
+
+	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{id}/join", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void joinGame(@PathVariable("id") Integer id) {
+		Game game = gameService.get(id);
+		game.getPlayers().add(((OAuthAuthenticationToken) SecurityContextHolder.getContext().getAuthentication())
+						.getUserProfile().getId());
+		gameService.saveOrUpdate(game);
+	}
+
 
 	@RequestMapping(value = "/" + UrlPathConstants.GAME + "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK)

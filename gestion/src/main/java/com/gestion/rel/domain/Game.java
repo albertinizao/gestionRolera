@@ -2,6 +2,8 @@ package com.gestion.rel.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -26,12 +28,12 @@ public class Game {
 
 	private Collection<Integer> characters;
 
-	private Collection<Integer> players;
+	private TreeSet<String> players;
 
 	public Game() {
 		masters = new ArrayList<>();
 		characters = new ArrayList<>();
-		players = new ArrayList<>();
+		players = new TreeSet<>();
 	}
 
 	public void setId(Integer id) {
@@ -76,12 +78,12 @@ public class Game {
 		this.masters = masters;
 	}
 
-	public Collection<Integer> getPlayers() {
+	public Collection<String> getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(Collection<Integer> players) {
-		this.players = players;
+	public void setPlayers(Collection<String> players) {
+		this.players = new TreeSet<String>(players);
 	}
 
 	@Override
